@@ -30,12 +30,10 @@ Those keys have the following types:
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')
-        _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
+        _locals = locals() | kwargs
         args = {k: _locals[k] for k in _explicit_args if k != 'children'}
 
         for k in []:
             if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
+                raise TypeError(f'Required argument `{k}` was not specified.')
         super(TabBoxBody, self).__init__(children=children, **args)
